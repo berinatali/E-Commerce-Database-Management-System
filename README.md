@@ -38,7 +38,6 @@ Technologies
 
  Entity Relationship Diagram
 
-
 ![Database Diagram](database_diagram.png)
 
  Project Purpose
