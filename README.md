@@ -38,7 +38,8 @@ Technologies
 
  Entity Relationship Diagram
 
-*(Upload your database diagram here as `database_diagram.png`.)*
+
+![Database Diagram](database_diagram.png)
 
  Project Purpose
 
