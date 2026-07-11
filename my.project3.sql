@@ -1,0 +1,503 @@
+--create database logisticsDB
+--go
+--use logisticsDB
+--go
+--create table customers
+--( customerID INT PRIMARY KEY IDENTITY(1,1), FirstName NVARCHAR(50) NOT NULL,
+--   lastName NVARCHAR(50) NOT NULL,
+--   phone VARCHAR(15) NOT NULL UNIQUE,
+--   email NVARCHAR(100) UNIQUE,
+--   address NVARCHAR(250) NOT NULL,
+--   city NVARCHAR(50) NOT NULL,
+--   customerType VARCHAR(15) NOT NULL
+--   check(customertype IN ('Sender','Receiver')));
+--create table branches ( branchID int identity(1,1) primary key, branchename nvarchar(50) not null, city nvarchar(20) not null,
+--district nvarchar(50) NOT NULL,
+--    address NVARCHAR(250) NOT NULL,
+--    Phone VARCHAR(15) UNIQUE,
+--    Email NVARCHAR(100) UNIQUE,
+--    CreatedDate DATETIME DEFAULT GETDATE())
+--insert into branches (brancheName, city, district, address, phone, email)
+--values
+--('Gebze Merkez Şubesi', 'Kocaeli', 'Gebze', 'Mustafa Paşa Mah. 1201 Sok. No:15', '02626410001', 'gebze@cargo.com'),
+
+--('İstanbul Avrupa Şubesi', 'İstanbul', 'Bağcılar', 'Güneşli Mah. 45 Sok. No:8', '02126410002', 'istanbul.avrupa@cargo.com'),
+
+--('Ankara Merkez Şubesi', 'Ankara', 'Çankaya', 'Atatürk Bulvarı No:75', '03126410003', 'ankara@cargo.com'),
+
+--('İzmir Şubesi', 'İzmir', 'Bornova', 'Kazımdirik Mah. 17 Sok. No:10', '02326410004', 'izmir@cargo.com');
+--insert into Customers
+--(FirstName, LastName, Phone, Email, Address, City, CustomerType)
+--values
+--('Ahmet', 'Yılmaz', '05321234567', 'ahmet.yilmaz@gmail.com', 'Cumhuriyet Mah. No:15', 'Kocaeli', 'Sender'),
+--('Ayşe', 'Demir', '05329876543', 'ayse.demir@gmail.com', 'Atatürk Cad. No:21', 'İstanbul', 'Receiver'),
+--('Mehmet', 'Kaya', '05335554433', 'mehmet.kaya@gmail.com', 'İnönü Mah. No:8', 'Ankara', 'Sender'),
+--('Zeynep', 'Çelik', '05337778899', 'zeynep.celik@gmail.com', 'Barbaros Mah. No:45', 'İzmir', 'Receiver'),
+--('Hasan', 'Şahin', '05331112233', 'hasan.sahin@gmail.com', 'Yeni Mah. No:18', 'Bursa', 'Sender'),
+--('Elif', 'Aydın', '05334445566', 'elif.aydin@gmail.com', 'Bahçelievler Mah. No:27', 'Antalya', 'Receiver'),
+--('Murat', 'Koç', '05336667788', 'murat.koc@gmail.com', 'Yıldırım Mah. No:9', 'Konya', 'Sender'),
+----('Fatma', 'Arslan', '05339990011', 'fatma.arslan@gmail.com', 'İstasyon Cad. No:12', 'Eskişehir', 'Receiver');
+--create table Employees(
+-- EmployeeID INT IDENTITY(1,1) PRIMARY KEY,
+-- FirstName NVARCHAR(50) NOT NULL,
+-- LastName NVARCHAR(50) NOT NULL,
+-- Phone VARCHAR(15) NOT NULL UNIQUE,
+-- Email NVARCHAR(100) UNIQUE,
+-- Position VARCHAR(30) NOT NULL
+-- CHECK (Position IN ('Manager','Courier','Office Staff')),
+--Salary DECIMAL(10,2) NOT NULL
+-- CHECK (Salary > 0),
+-- BranchID INT NOT NULL,
+--HireDate DATE NOT NULL,
+
+-- CONSTRAINT FK_Employees_Branches
+--  FOREIGN KEY (BranchID)
+--   REFERENCES Branches(BranchID));
+----insert into Employees
+----(FirstName, LastName, Phone, Email, Position, Salary, BranchID, HireDate)
+----values
+----('Ali', 'Yıldız', '05551112233', 'ali.yildiz@cargo.com', 'Manager', 45000, 1, '2023-01-15'),
+----('Burcu', 'Kara', '05552223344', 'burcu.kara@cargo.com', 'Courier', 30000, 1, '2024-02-10'),
+----('Emre', 'Demir', '05553334455', 'emre.demir@cargo.com', 'Office Staff', 32000, 2, '2023-08-20'),
+----('Can', 'Aydın', '05554445566', 'can.aydin@cargo.com', 'Courier', 29500, 2, '2024-01-05'),
+----('Selin', 'Çetin', '05555556677', 'selin.cetin@cargo.com', 'Manager', 47000, 3, '2022-11-18'),
+----('Mert', 'Koç', '05556667788', 'mert.koc@cargo.com', 'Courier', 30500, 3, '2024-03-12'),
+----('Ece', 'Şahin', '05557778899', 'ece.sahin@cargo.com', 'Office Staff', 31500, 4, '2023-09-25'),
+----('Onur', 'Arslan', '05558889900', 'onur.arslan@cargo.com', 'Courier', 29800, 4, '2024-04-01');
+--create table Vehicles(
+--VehicleID INT IDENTITY(1,1) PRIMARY KEY,
+-- PlateNumber VARCHAR(15) NOT NULL UNIQUE,
+-- VehicleType VARCHAR(20) NOT NULL
+-- CHECK (VehicleType IN ('Truck','Van','Motorcycle')),
+-- Brand NVARCHAR(30) NOT NULL,
+--Model NVARCHAR(30) NOT NULL,
+--Capacity DECIMAL(8,2) NOT NULL
+-- CHECK (Capacity > 0),
+--Status VARCHAR(20) NOT NULL
+-- CHECK (Status IN ('Available','In Transit','Maintenance')),
+-- BranchID INT NOT NULL,
+--CONSTRAINT FK_Vehicles_Branches
+--  FOREIGN KEY (BranchID)
+--  REFERENCES Branches(BranchID));
+--insert into Vehicles
+--(PlateNumber, VehicleType, Brand, Model, Capacity, Status, BranchID)
+--values
+--('41 ABC 101', 'Truck', 'Mercedes', 'Actros', 18000, 'Available', 1),
+--('34 XYZ 202', 'Van', 'Ford', 'Transit', 3500, 'Available', 2),
+--('06 DEF 303', 'Motorcycle', 'Honda', 'PCX 125', 80, 'In Transit', 3),
+--('35 GHI 404', 'Truck', 'Volvo', 'FH16', 20000, 'Maintenance', 4),
+--('16 JKL 505', 'Van', 'Fiat', 'Ducato', 3200, 'Available', 1),
+--('07 MNO 606', 'Motorcycle', 'Yamaha', 'NMAX 125', 75, 'Available', 2),
+--('42 PRS 707', 'Truck', 'MAN', 'TGX', 19000, 'In Transit', 3),
+--('54 TUV 808', 'Van', 'Volkswagen', 'Crafter', 3400, 'Available', 4);
+--create table Shipments
+--(ShipmentID INT IDENTITY(1,1) PRIMARY KEY,TrackingNumber VARCHAR(20) NOT NULL UNIQUE,
+-- SenderID INT NOT NULL,
+-- ReceiverID INT NOT NULL,
+--Weight DECIMAL(8,2) NOT NULL
+-- CHECK (Weight > 0),
+--    shippingDate DATE NOT NULL,
+--    EstimatedDeliveryDate DATE NOT NULL,
+--    ShippingCost DECIMAL(10,2) NOT NULL
+--        CHECK (ShippingCost >= 0),
+-- Status VARCHAR(30) NOT NULL
+--        CHECK (Status IN 
+--        ('Preparing',
+--         'In Transit',
+--         'At Branch',
+--         'Out for Delivery',
+--         'Delivered',
+--         'Cancelled')),
+--    OriginBranchID INT NOT NULL,
+--    DestinationBranchID INT NOT NULL,
+--    CONSTRAINT FK_Shipments_Sender
+--        FOREIGN KEY (SenderID)
+--        REFERENCES Customers(CustomerID),
+--    CONSTRAINT FK_Shipments_Receiver
+--        FOREIGN KEY (ReceiverID)
+--        REFERENCES Customers(CustomerID),
+--    CONSTRAINT FK_Shipments_OriginBranch
+--        FOREIGN KEY (OriginBranchID)
+--        REFERENCES Branches(BranchID),
+-- CONSTRAINT FK_Shipments_DestinationBranch
+--        FOREIGN KEY (DestinationBranchID)
+--        REFERENCES Branches(BranchID));
+--CREATE TABLE ShipmentTransfers (
+--    TransferID INT IDENTITY(1,1) PRIMARY KEY,
+--    TrackingNumber VARCHAR(20) NOT NULL,
+--    FromBranchID INT NOT NULL,
+--    ToBranchID INT NOT NULL,
+--    VehicleID INT NOT NULL,
+--    EmployeeID INT NOT NULL,
+--    TransferDate DATETIME DEFAULT GETDATE(),
+--    Status VARCHAR(30) NOT NULL
+--        CHECK(Status IN ('Started','Completed','Cancelled')),
+--    CONSTRAINT FK_Transfer_FromBranch
+--    FOREIGN KEY(FromBranchID)
+--    REFERENCES Branches(BranchID),
+--    CONSTRAINT FK_Transfer_ToBranch
+--    FOREIGN KEY(ToBranchID)
+--INSERT INTO ShipmentTransfers(
+-- TrackingNumber,
+-- FromBranchID,
+-- ToBranchID,
+-- VehicleID,
+-- EmployeeID,
+-- TransferDate,
+-- status)
+--values
+--('TRK100001', 1, 2, 1, 2, '2026-07-01 09:30:00', 'Started'),
+--('TRK100002', 3, 4, 4, 6, '2026-07-02 11:00:00', 'Completed'),
+--('TRK100003', 1, 3, 5, 4, '2026-07-03 14:15:00', 'Started'),
+--('TRK100004', 2, 4, 2, 8, '2026-07-04 10:45:00', 'Completed'),
+--('TRK100005', 4, 1, 7, 6, '2026-07-05 16:20:00', 'Cancelled');
+-- REFERENCES Branches(BranchID),
+-- CONSTRAINT FK_Transfer_Vehicle
+-- FOREIGN KEY(VehicleID)
+-- REFERENCES Vehicles(VehicleID),
+-- CONSTRAINT FK_Transfer_Employee
+-- FOREIGN KEY(EmployeeID)
+-- REFERENCES Employees(EmployeeID));
+--CREATE TABLE Deliveries(
+--    DeliveryID INT IDENTITY(1,1) PRIMARY KEY,
+--    TrackingNumber VARCHAR(20) NOT NULL,
+--    EmployeeID INT NOT NULL,
+--    ReceiverName NVARCHAR(100) NOT NULL,
+--    DeliveryDate DATETIME DEFAULT GETDATE(),
+--    DeliveryStatus VARCHAR(20) NOT NULL
+--        CHECK (DeliveryStatus IN ('Delivered','Failed','Pending')),
+--    Note NVARCHAR(250),
+-- CONSTRAINT FK_Deliveries_Employee
+-- FOREIGN KEY(EmployeeID)
+-- REFERENCES Employees(EmployeeID));
+--INSERT INTO Deliveries(
+--    TrackingNumber,
+--    EmployeeID,
+--    ReceiverName,
+--    DeliveryDate,
+--    DeliveryStatus,
+--    Note)
+--VALUES
+--('TRK100001', 2, 'Ayşe Demir', '2026-07-03 15:30:00', 'Delivered', 'Teslim alındı'),
+--('TRK100002', 6, 'Mehmet Kaya', '2026-07-05 12:10:00', 'Delivered', 'Sorunsuz teslim edildi'),
+--('TRK100003', 4, 'Zeynep Çelik', NULL, 'Pending', 'Alıcı bekleniyor'),
+--('TRK100004', 8, 'Hasan Şahin', NULL, 'Failed', 'Adreste bulunamadı');
+--CREATE TABLE Payments
+--(PaymentID INT IDENTITY(1,1) PRIMARY KEY,TrackingNumber VARCHAR(20) NOT NULL, Amount DECIMAL(10,2) NOT NULL
+--  CHECK (Amount > 0),PaymentMethod VARCHAR(20) NOT NULL CHECK (PaymentMethod IN ('Cash','Credit Card','Transfer')),
+--PaymentStatus VARCHAR(20) NOT NULl CHECK (PaymentStatus IN ('Paid','Pending','Cancelled')),
+-- PaymentDate DATETIME DEFAULT GETDATE());
+--INSERT INTO Payments
+--( TrackingNumber, Amount, PaymentMethod, PaymentStatus, PaymentDate)
+--VALUES
+--('TRK100001',120,'Credit Card','Paid','2026-07-01 10:00:00'),
+--('TRK100002',250,'Cash','Paid','2026-07-02 12:30:00'),
+--('TRK100003',90,'Transfer','Pending','2026-07-03 09:15:00'),
+--('TRK100004',400,'Credit Card','Cancelled','2026-07-04 14:20:00'),
+--('TRK100005',160,'Cash','Paid','2026-07-05 16:45:00');
+--CREATE TABLE ShipmentStatusHistory( HistoryID INT IDENTITY(1,1) PRIMARY KEY,
+-- TrackingNumber VARCHAR(20) NOT NULL, Status VARCHAR(30) NOT NULL  CHECK(Status IN  (
+--            'Preparing',
+--            'In Transit',
+--            'At Branch',
+--            'Out for Delivery',
+--            'Delivered',
+--            'Cancelled' )),
+--StatusDate DATETIME DEFAULT GETDATE(), Location NVARCHAR(100) NOT NUll Description NVARCHAR(250));
+--INSERT INTO ShipmentStatusHistory(TrackingNumber,Status,statusdate, , Location, Description)
+--VALUES
+--('TRK100001',
+--'Preparing',
+--'2026-07-01 08:00:00',
+--'Gebze Şubesi',
+--'Kargo kabul edildi'),
+--('TRK100001',
+--'In Transit',
+--'2026-07-01 10:30:00',
+--'İstanbul Transfer Merkezi',
+--'Araç ile transfer başladı'),
+--('TRK100001',
+--'At Branch',
+--'2026-07-02 09:00:00',
+--'İstanbul Avrupa Şubesi',
+--'Şubeye ulaştı'),
+--('TRK100001',
+--'Delivered',
+--'2026-07-03 15:30:00',
+--'İstanbul',
+--'Alıcıya teslim edildi'),
+--('TRK100002',
+--'Preparing',
+--'2026-07-02 09:15:00',
+--'Ankara Şubesi',
+--'Kargo kabul edildi'),('TRK100002',
+--'In Transit',
+--'2026-07-03 13:00:00',
+--'Bursa Transfer Merkezi',
+--'Transfer halinde');
+--select * from employees e inner join branches b on e.branchID=b.branchID
+--select V.PlateNumber, V.VehicleType, V.Brand, V.Model, B.BranchName from Vehicles V inner join Branches B on V.BranchID = B.BranchID;
+--select b.branchname, b.city ,count(e.employeeID) as employeecount from branches b inner join employees e on b.branchID=e.branchID group by  
+--b.branchname, b.city
+--select b.branchname,b.city ,count(v.vehicleID) as vehiclecount from branches b inner join vehicles v on b.branchID=v.branchID group by 
+--b.branchname, b.city
+--select b.branchname,count(e.employeeID) as employeecount from branches b inner join employees e on b.branchID=e.branchID group by b.branchname 
+--having count(e.employeeID)>3
+--create view vw_BranchEmployees as
+--select E.EmployeeID, E.FirstName,E.LastName, E.Position,B.BranchName, B.City from Employees E ON E.BranchID = B.BranchID;
+--select * from vw_branchemployees
+--create view vw_VehicleStatus as
+--select V.VehicleID, V.PlateNumber, V.VehicleType, V.Brand, V.Model, V.Status, B.BranchName, B.City from Vehicles v INNER JOIN Branches B ON V.BranchID = B.BranchID;
+--select * from vw_vehiclestatus
+--create view vw_TransferReport as
+--select ST.TrackingNumber,ST.TransferDate,ST.Status,E.FirstName + ' ' + E.LastName AS EmployeeName, V.PlateNumber, B1.BranchName AS FromBranch, B2.BranchName AS ToBranch
+--FROM ShipmentTransfers ST INNER JOIN Employees E ON ST.EmployeeID = E.EmployeeID INNER JOIN Vehicles V ON ST.VehicleID = V.VehicleID  INNER JOIN Branches B1
+--ON ST.FromBranchID = B1.BranchID INNER JOIN Branches B2 ON ST.ToBranchID = B2.BranchID;
+--select * from vw_transferreport
+--create procedure sp_getemployeeByID (@employeeID int)
+--as
+--begin
+--select employeeID,firstname,lastname, position,salary, branchID from employees where employeeID=@employeeID
+--end
+--exec sp_getemployeeByID 3
+--create procedure sp_AddEmployee( @FirstName nvarchar(50), @LastName nvarchar(50), @Phone varchar(15), @Email nvarchar(100), @Position varchar(30), @Salary decimal(10,2),
+-- @BranchID int,@HireDate date)
+--as
+--begin
+--insert into Employees(FirstName, LastName, Phone, Email, Position, Salary, BranchID, HireDate)
+--values( @FirstName, @LastName, @Phone,@email,  @Position,  @Salary,  @BranchID,@HireDate);
+--END;
+--exec sp_AddEmployee
+--'Ahmet','Yılmaz','05550000000','ahmet@cargo.com','Courier',30000,1,'2026-07-10';
+--create procedure sp_CreateTransfer (@TrackingNumber VARCHAR(20),@FromBranchID INT,@ToBranchID INT,@VehicleID INT,@EmployeeID INT,@Status VARCHAR(30))
+--as
+--begin
+--if @FromBranchID = @ToBranchID
+--begin
+--print 'Çıkış ve varış şubesi aynı olamaz';
+--return;
+--end
+--IF not exists ( select 1 from Vehicles where VehicleID = @VehicleID)
+--begin
+--print'Araç bulunamadı';
+--return;
+--end
+--if not EXISTS(select 1 from  Employees where EmployeeID = @EmployeeID )
+--begin
+--print'Personel bulunamadı';
+--return;
+--end
+--insert into ShipmentTransfers(  TrackingNumber, FromBranchID, ToBranchID, VehicleID, EmployeeID,Status )
+--values(@TrackingNumber,
+--        @FromBranchID,
+--        @ToBranchID,
+--        @VehicleID,
+--        @EmployeeID,
+--        @Status);
+--print 'Transfer başarıyla oluşturuldu';
+--end
+--create procedure sp_updatevehiclestatus (@vehicleID int, @newstatus nvarchar(100))
+--as
+--begin
+--if not exists (select 1 from vehicles where vehicleID=@vehicleID)
+--begin
+--print 'arac bulunamadı'
+--return
+--end
+--if @NewStatus not in('Available','In Transit','Maintenance')
+--begin
+--print 'Geçersiz araç durumu';
+--return;
+--end
+--UPDATE Vehicles
+--set status= @NewStatus
+--where VehicleID = @VehicleID;
+--print 'Araç durumu başarıyla güncellendi';
+--end
+--create procedure sp_getshipmenthistory( @trackingnumber varchar(20))
+--as
+--begin 
+--select trackingnumber, status, statusdate, location , description from shipmentstatushistory where trackingnumber=@trackingnumber order by statusdate
+--end
+--exec sp_getshipmenthistory 'trk10001'
+--create table EmployeeLogs(LogID int identity primary key,EmployeeID int,FullName nvarchar(100),LogDate datetime default getdate(),ActionType varchar(20));
+--create trigger trg_AddEmployeeLog on employees
+--after insert
+--as
+--begin
+--insert into EmployeeLogs( EmployeeID, FullName, ActionType )
+--select EmployeeID, FirstName + ' ' + LastName,'INSERT'
+--from  inserted;
+--insert into Employees(FirstName,LastName,Phone,Email,Position,Salary,BranchID, HireDate)
+--values('Can','Arslan','05559998877','can@mail.com','Courier',32000, 1, '2026-07-11');
+--select * from employeelogs
+--create table vehiclestatuslogs( logID int identity(1,1) primary key, vehicleID int, oldstatus nvarchar(50), newstatus nvarchar(50),changedate datetime
+--default getdate())
+--create trigger trg_VehicleStatusLog on Vehicles 
+--after update 
+--as
+--begin
+--insert into vehicleStatusLogs(VehicleID,OldStatus,  NewStatus)
+--select d.VehicleID,d.Status,i.Status from deleted d
+-- inner join inserted i on d.VehicleID = i.VehicleID;
+--end
+--update Vehicles
+--set status = 'Maintenance'
+--where VehicleID = 2;
+--select * from vehiclestatuslogs
+--create trigger trg_deleteemployeelog
+--on  employees
+--after delete
+--as
+--begin
+--insert into employeelogs(employeeID, fullname,actiontype)
+--select employeeID, firstname + ' '+ lastname,'delete'
+--from deleted
+--end
+--delete from employees where employeeID=5
+--select * from employeelogs
+--create trigger trg_PreventSalaryDecrease on Employees
+--after update
+--as
+--begin
+--if exists(select 1 from inserted i inner join deleted d on i.EmployeeID = d.EmployeeID where i.Salary < d.Salary)
+--begin
+--raiserror('Maaş düşürülemez.',16,1);
+--rollback transaction
+--end
+--end
+--insert into Deliveries( TrackingNumber, EmployeeID,ReceiverName,DeliveryDate, DeliveryStatus)
+--values('TRK100001',3,'Mehmet Kaya',getdate(),'Delivered');
+--update deliveries set employeeID=4 where employeeID=3
+--create function fn_CalculateShippingCost(@Weight decimal(5,2))
+--returns decimal(10,2)
+--as
+--begin
+--declare @Cost decimal(10,2);
+--if @Weight <= 5
+--set @Cost = 100;
+--else if @Weight <= 10
+--set @Cost = 180;
+--else
+--set @Cost = 300;
+--return @Cost;
+--end
+--select dbo.fn_CalculateShippingCost(7) as ShippingCost;
+--select dbo.fn_CalculateShippingCost(12) as ShippingCost;
+--create function fn_calculatedeliverytime(@distance int)
+--returns int
+--as
+--begin
+--declare @deliverytime int;
+--if @distance<=100 set @deliverytime=1
+--else if @distance<=500 set @deliverytime=3;
+--else set @deliverytime=5;
+--return @deliverytime
+--end
+--select dbo.fn_CalculateDeliveryTime(250) as DeliveryDays;
+--create function fn_GetShipmentStatus( @StatusCode char(1))
+--returns varchar(30)
+--as
+--begin
+--declare @StatusName varchar(30);
+--if @StatusCode = 'P'
+--set @StatusName = 'Preparing';
+--else if @StatusCode = 'T' set @StatusName = 'In Transit';
+--else if @StatusCode = 'D' set @StatusName = 'Delivered';
+--else set @StatusName = 'Unknown';
+--return @StatusName;
+--end
+--select dbo.fn_GetShipmentStatus('T');
+--create function fn_calculateshippingprice(@distance int)
+--returns decimal(10,2)
+--as
+--begin
+--declare  @price decimal(10,2)
+--set @price=50+((@distance/100)*20)
+--return @price
+--end
+--select dbo.fn_CalculateShippingPrice(500);
+--create function fn_Getavailablevehicles()
+--returns table
+--as
+--return(select  VehicleID,PlateNumber,VehicleType,Brand,Model,Capacity,Status from Vehicles where Status = 'Available')
+--select * from dbo.fn_Getavailablevehicles();
+--create index IX_Vehicles_Status on Vehicles(Status);
+--select * from Vehicles where Status='Available';
+--create index IX_Employees_BranchID on Employees(BranchID);
+--select * from Employees where BranchID=1;
+--create view vw_EmployeeBranchInfo
+--as
+--select E.EmployeeID,E.FirstName,E.LastName,E.Phone,E.Position,B.BranchName,B.City from Employees E INNER JOIN Branches B
+--on E.BranchID = B.BranchID;
+--select * from vw_EmployeeBranchInfo;
+--create view vw_BranchVehicleCount as select B.BranchName,count(V.VehicleID) AS VehicleCount from Branches B left join Vehicles V on
+--B.BranchID = V.BranchID group by B.BranchName;
+--begin transaction
+--update  Vehicles set status = 'Maintenance' where VehicleID = 2;
+--insert into VehicleStatusLogs
+--( VehicleID, OldStatus, NewStatus)
+--values(2,'Available','Maintenance');
+--COMMIT;
+--create procedure  sp_AddEmployeeWithLog ( @FirstName varchar(50),@LastName varchar(50),@Phone varchar(20),@Email varchar(100),@Position varchar(50),
+-- @Salary decimal(10,2),@BranchID int,@HireDate date)
+--as
+--begin
+--begin try
+--begin transaction
+--declare @EmployeeID int;
+--insert into Employees
+--        (FirstName,LastName,Phone,Email,Position,Salary,BranchID, HireDate )
+--values ( @FirstName, @LastName, @Phone, @Email, @Position, @Salary, @BranchID, @HireDate);
+--set @EmployeeID = SCOPE_IDENTITY();
+--insert into EmployeeLogs
+--        (  EmployeeID,  FullName,  ActionType)
+--values  (  @EmployeeID,  @FirstName + ' ' + @LastName,  'INSERT' );
+--commit transcation;
+--print 'Personel başarıyla eklendi.';
+--end try
+--begin catch
+--print 'Hata oluştu!';
+--print error_message();
+-- end catch
+--end; 
+--select  B.BranchName,count(E.EmployeeID) as EmployeeCount from Branches B left join Employees E on B.BranchID = E.BranchID group by B.BranchName;
+--select city, count(customerID) as customercount from customers group by city
+--select status, count(vehicleID) as vehiclecount from vehicles group by status
+--select B.BranchName ,count(distinct E.EmployeeID) as EmployeeCount,count(distinct V.VehicleID) as VehicleCount from Branches B
+--left join Employees E on B.BranchID = E.BranchID left join  Vehicles V on B.BranchID = V.BranchID group by B.BranchName;
+--select City,count(CustomerID) as CustomerCount from Customers group by City having count (CustomerID) >= 2;
+--select * from Employees where Salary >(select AVG(Salary) from Employees);
+--select *  from employees where salary=(select max(salary) from employees)
+--select FirstName,LastName,Salary,
+--case
+--when Salary<30000 then 'Düşük'
+--when Salary between 30000 and 40000 then 'Orta'
+--else 'Yüksek'
+--end as SalaryLevel
+--from Employees;
+--select * from branches b where exists(select 1 from employees e where e.branchID=b.branchID)
+--select employeeID,firstname,lastname,position,salary from employees where salary > (select avg(salary) from employees)
+--select branchname from  branches where branchID=(select top 1 branchID from employees group by branchID order by count(*) desc)
+--select branchname from branches where branchID not in (select branchID from employees)
+--with AboveAverageSalary as(select EmployeeID, FirstName, LastName, Salary, BranchID from Employees where Salary >(select avg(Salary) 
+--from Employees ))
+--select A.FirstName,A.LastName,A.Salary,B.BranchName
+--from AboveAverageSalary A inner join Branches B on A.BranchID = B.BranchID;
+--select EmployeeID,FirstName,LastName,BranchID,Salary,row_number() over(partition by BranchID order by Salary desc) as RankInBranch
+--from Employees;
+--with EmployeeRank as(select EmployeeID,FirstName,LastName,BranchID,Salary,rank() over(partition by BranchID order by Salary desc)as SalaryRank
+--from Employees)
+--select*from EmployeeRank where SalaryRank = 1;
+--select b.branchname, count(distinct e.employeeID) as employeecount,count(distinct v.vehicleID) as vehiclecount from branches b left join
+--employees e on  b.branchID=e.branchID left join vehicles v on  e.branchID =v.branchID group by b.branchname
+--with EmployeeSalaryRank as(select E.EmployeeID,E.FirstName,E.LastName,E.BranchID,E.Salary, rank over())partition by E.BranchID order by
+--E.Salary desc) as SalaryRank from Employees E)
+--select b.branchname , count(v.vehicleID) as totalvehicles ,sum (case when v.status='available' then 1 else 0
+--end) as availablevehicles , sum(case when v.status='maintenance' then 1 else 0 end) as maintenancevehicles
+--from branches b  left join vehicles v on b.branchID=v.branchID group by b.branchname
+--select E.FirstName, E.LastName, B.BranchName, E.Salary,rank over ()
+--    ( partition by E.BranchID order by E.Salary desc) as BranchSalaryRank from Employees E inner join Branches B on E.BranchID = B.BranchID;
+--select B.BranchName, e.FirstName,  E.LastName,  E.Salary from EmployeeSalaryRank E inner join Branches B on E.BranchID = B.BranchID
+--where E.SalaryRank = 1;
+
